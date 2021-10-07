@@ -3,7 +3,7 @@
 </template>
 
 <script>
-
+import 'bootstrap';
 export default {
     name: "App.vue",
     computed: {
