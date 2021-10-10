@@ -13,15 +13,18 @@ const router = createRouter({
         {
             path: '/',
             component: IndexPage,
+            redirect: "/ru"
         },
         {
             path: '/:locale',
+            name: 'locale',
             component: {
-                template:  "<router-view>",
-                redirect: {
-                    name: "login"
-                }
+                template:  "<router-view />",
             },
+            redirect: {
+                name: "login"
+            },
+
             children: [
                 {
                     name: 'login',

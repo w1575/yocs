@@ -24797,7 +24797,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mb-md-5 mt-md-4 pb-5\"><h2 class=\"fw-bold mb-2 text-uppercase\">Login</h2><p class=\"text-white-50 mb-5\">Please enter your login and password!</p><div class=\"form-outline form-white mb-4\"><input type=\"email\" id=\"typeEmailX\" class=\"form-control form-control-lg\"><label class=\"form-label\" for=\"typeEmailX\">Email</label></div><div class=\"form-outline form-white mb-4\"><input type=\"password\" id=\"typePasswordX\" class=\"form-control form-control-lg\"><label class=\"form-label\" for=\"typePasswordX\">Password</label></div><p class=\"small mb-5 pb-lg-2\"><a class=\"text-white-50\" href=\"#!\">Forgot password?</a></p><button class=\"btn btn-outline-light btn-lg px-5\" type=\"submit\">Login</button><div class=\"d-flex justify-content-center text-center mt-4 pt-1\"><a href=\"#!\" class=\"text-white\"><i class=\"fab fa-facebook-f fa-lg\"></i></a><a href=\"#!\" class=\"text-white\"><i class=\"fab fa-twitter fa-lg mx-4 px-2\"></i></a><a href=\"#!\" class=\"text-white\"><i class=\"fab fa-google fa-lg\"></i></a></div></div><div><p class=\"mb-0\">Don&#39;t have an account? <a href=\"#!\" class=\"text-white-50 fw-bold\">Sign Up</a></p></div>", 2);
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mb-md-5 mt-md-4 pb-5\"><h2 class=\"fw-bold mb-2 text-uppercase\">Login</h2><p class=\"text-white-50 mb-5\">Please enter your login and password!</p><div class=\"form-outline form-white mb-4\"><input placeholder=\"Email\" type=\"email\" id=\"typeEmailX\" class=\"form-control form-control-lg\"><!--                        &lt;label class=&quot;form-label&quot; for=&quot;typeEmailX&quot;&gt;Email&lt;/label&gt;--></div><div class=\"form-outline form-white mb-4\"><input placeholder=\"Password\" type=\"password\" id=\"typePasswordX\" class=\"form-control form-control-lg\"><!--                        &lt;label class=&quot;form-label&quot; for=&quot;typePasswordX&quot;&gt;Password&lt;/label&gt;--></div><p class=\"small mb-5 pb-lg-2\"><a class=\"text-white-50\" href=\"#!\">Forgot password?</a></p><button class=\"btn btn-outline-light btn-lg px-5\" type=\"submit\">Login</button><div class=\"d-flex justify-content-center text-center mt-4 pt-1\"><a href=\"#!\" class=\"text-white\"><i class=\"fab fa-facebook-f fa-lg\"></i></a><a href=\"#!\" class=\"text-white\"><i class=\"fab fa-twitter fa-lg mx-4 px-2\"></i></a><a href=\"#!\" class=\"text-white\"><i class=\"fab fa-google fa-lg\"></i></a></div></div><div><p class=\"mb-0\">Don&#39;t have an account? <a href=\"#!\" class=\"text-white-50 fw-bold\">Sign Up</a></p></div>", 2);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return _hoisted_1;
@@ -24876,8 +24876,50 @@ __webpack_require__(/*! ./router/index */ "./resources/js/router/index.js");
 // })
 
 var _Vue = Vue,
-    createApp = _Vue.createApp;
-var YocsApp = createApp(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]).use(_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
+    createApp = _Vue.createApp,
+    h = _Vue.h;
+var YocsApp = createApp({
+  render: function render() {
+    return h(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
+  },
+  watch: {
+    $route: function $route(to, from) {
+      // react to route changes...
+      var params = to.params;
+
+      if (params.locale !== undefined) {
+        this.redirectToHome();
+      }
+    }
+  },
+  methods: {
+    isGuest: function isGuest() {
+      console.log('Проверяем залогинился ли пользователь');
+      return true;
+    },
+    redirectToHome: function redirectToHome() {
+      console.log('Редиректим на главную страницу');
+      var currentLanguage = this.getCurrentLanguage();
+
+      if (this.isGuest()) {
+        this.$router.push({
+          path: "/" + currentLanguage + "/login"
+        });
+      } else {
+        this.$router.push({
+          path: "/" + currentLanguage + "/index"
+        });
+      }
+    },
+    getCurrentLanguage: function getCurrentLanguage() {
+      return localesList.en;
+    }
+  }
+}).use(_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
+var localesList = {
+  en: 'en',
+  ru: 'ru'
+};
 YocsApp.component('MainLayout', __webpack_require__(/*! ./layouts/MainLayout.vue */ "./resources/js/layouts/MainLayout.vue")["default"]);
 YocsApp.component('PublicLayout', __webpack_require__(/*! ./layouts/PublicLayout.vue */ "./resources/js/layouts/PublicLayout.vue")["default"]);
 YocsApp.mount('#app');
@@ -24940,14 +24982,16 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
   history: history,
   routes: [{
     path: '/',
-    component: _views_pages_IndexPage_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    component: _views_pages_IndexPage_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    redirect: "/ru"
   }, {
     path: '/:locale',
+    name: 'locale',
     component: {
-      template: "<router-view>",
-      redirect: {
-        name: "login"
-      }
+      template: "<router-view />"
+    },
+    redirect: {
+      name: "login"
     },
     children: [{
       name: 'login',
