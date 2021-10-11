@@ -8,13 +8,6 @@ import router from "./router";
 import App from "./App.vue";
 import 'bootstrap';
 
-// const { I18n } = require('i18n')
-//
-// const i18n = new I18n({
-//     locales: ['en', 'de'],
-//     directory: path.join(__dirname, 'locales')
-// })
-
 const { createApp, h } = Vue
 
 const YocsApp = createApp({
@@ -22,31 +15,48 @@ const YocsApp = createApp({
         watch: {
             $route(to, from) {
                 // react to route changes...
+                this.checkLocale(from)
+            }
+        },
+        methods: {
+            /**
+             * Check current locale
+             * @param to
+             */
+            checkLocale(to) {
                 let params = to.params;
                 if (params.locale !== undefined) {
                     this.redirectToHome()
                 }
-
-            }
-        },
-        methods: {
+            },
+            /**
+             * Checks if the user is guest
+             * @returns {boolean}
+             */
             isGuest() {
                 console.log('Проверяем залогинился ли пользователь');
                 return true;
             },
+            /**
+             * Redirects user to home page. Depends on whether the user is guest or not.
+             */
             redirectToHome() {
                 console.log('Редиректим на главную страницу');
                 let currentLanguage = this.getCurrentLanguage()
-                if (this.isGuest()) {
-                    this.$router.push({
-                        path : "/" + currentLanguage +  "/login"
-                    })
-                } else {
-                    this.$router.push({
-                        path: "/" + currentLanguage + "/index"
-                    })
-                }
+                // if (this.isGuest()) {
+                //     this.$router.push({
+                //         path : "/" + currentLanguage +  "/auth/login"
+                //     })
+                // } else {
+                //     this.$router.push({
+                //         path: "/" + currentLanguage + "/index"
+                //     })
+                // }
             },
+            /**
+             * Gets current locale for user
+             * @returns {string}
+             */
             getCurrentLanguage() {
                 return localesList.en;
             }
@@ -54,9 +64,6 @@ const YocsApp = createApp({
     })
     .use(router)
 ;
-
-
-
 
 
 const localesList = {

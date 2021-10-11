@@ -24564,13 +24564,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App.vue",
   computed: {
-    isUserGuest: function isUserGuest() {
-      return true;
-    },
     currentLayout: function currentLayout() {
-      return this.isUserGuest ? 'PublicLayout' : 'MainLayout';
+      return this.$root.isGuest() ? 'PublicLayout' : 'MainLayout';
     }
-  }
+  } // beforeRouteEnter(to, from, next) {
+  //     next(vm => {
+  //         if (! vm.isGuest()) {
+  //             vm.redirectToHome()
+  //         }
+  //     })
+  //
+  // },
+
 });
 
 /***/ }),
@@ -24868,12 +24873,6 @@ __webpack_require__(/*! ./router/index */ "./resources/js/router/index.js");
 
 
 
- // const { I18n } = require('i18n')
-//
-// const i18n = new I18n({
-//     locales: ['en', 'de'],
-//     directory: path.join(__dirname, 'locales')
-// })
 
 var _Vue = Vue,
     createApp = _Vue.createApp,
@@ -24885,32 +24884,51 @@ var YocsApp = createApp({
   watch: {
     $route: function $route(to, from) {
       // react to route changes...
+      this.checkLocale(from);
+    }
+  },
+  methods: {
+    /**
+     * Check current locale
+     * @param to
+     */
+    checkLocale: function checkLocale(to) {
       var params = to.params;
 
       if (params.locale !== undefined) {
         this.redirectToHome();
       }
-    }
-  },
-  methods: {
+    },
+
+    /**
+     * Checks if the user is guest
+     * @returns {boolean}
+     */
     isGuest: function isGuest() {
       console.log('Проверяем залогинился ли пользователь');
       return true;
     },
+
+    /**
+     * Redirects user to home page. Depends on whether the user is guest or not.
+     */
     redirectToHome: function redirectToHome() {
       console.log('Редиректим на главную страницу');
-      var currentLanguage = this.getCurrentLanguage();
-
-      if (this.isGuest()) {
-        this.$router.push({
-          path: "/" + currentLanguage + "/login"
-        });
-      } else {
-        this.$router.push({
-          path: "/" + currentLanguage + "/index"
-        });
-      }
+      var currentLanguage = this.getCurrentLanguage(); // if (this.isGuest()) {
+      //     this.$router.push({
+      //         path : "/" + currentLanguage +  "/auth/login"
+      //     })
+      // } else {
+      //     this.$router.push({
+      //         path: "/" + currentLanguage + "/index"
+      //     })
+      // }
     },
+
+    /**
+     * Gets current locale for user
+     * @returns {string}
+     */
     getCurrentLanguage: function getCurrentLanguage() {
       return localesList.en;
     }
@@ -24996,7 +25014,8 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
     children: [{
       name: 'login',
       path: 'login',
-      component: _views_auth_login__WEBPACK_IMPORTED_MODULE_2__["default"]
+      component: _views_auth_login__WEBPACK_IMPORTED_MODULE_2__["default"],
+      userRoles: []
     }, {
       name: "registerPage",
       path: 'register',

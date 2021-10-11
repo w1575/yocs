@@ -13,7 +13,7 @@ const router = createRouter({
         {
             path: '/',
             component: IndexPage,
-            redirect: "/ru"
+            redirect: "/ru",
         },
         {
             path: '/:locale',
@@ -24,19 +24,21 @@ const router = createRouter({
             redirect: {
                 name: "login"
             },
-
             children: [
                 {
                     name: 'login',
                     path: 'login',
                     component: LoginPage,
+                    userRoles: [
+
+                    ],
                 },
                 {
                     name: "registerPage",
                     path: 'register',
                     component: RegisterPage,
                 }
-            ]
+            ],
         },
 
     ]

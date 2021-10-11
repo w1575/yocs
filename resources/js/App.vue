@@ -7,15 +7,21 @@ import 'bootstrap';
 export default {
     name: "App.vue",
     computed: {
-        isUserGuest() {
-            return true;
-        },
+
         currentLayout() {
-            return this.isUserGuest
+            return this.$root.isGuest()
                 ? 'PublicLayout'
                 : 'MainLayout'
         }
     },
+    // beforeRouteEnter(to, from, next) {
+    //     next(vm => {
+    //         if (! vm.isGuest()) {
+    //             vm.redirectToHome()
+    //         }
+    //     })
+    //
+    // },
 }
 
 
