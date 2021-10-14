@@ -1,8 +1,11 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore  } from 'vuex'
+import { userModule } from './modules/user/index'
+import { alertModule } from  './modules/alert/index'
 
-Vue.use(Vuex)
-
-export const store = new Vuex.Store({
-    
+export const store = createStore({
+    modules: {
+        userModule: userModule,
+        alertModule: alertModule,
+    }
 })
+

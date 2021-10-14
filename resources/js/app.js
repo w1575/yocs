@@ -7,6 +7,7 @@ require('./router/index')
 import router from "./router";
 import App from "./App.vue";
 import 'bootstrap';
+import { store } from './store/index'
 
 const { createApp, h } = Vue
 
@@ -16,8 +17,10 @@ const YocsApp = createApp({
             $route(to, from) {
                 // react to route changes...
                 this.checkLocale(from)
+
             }
         },
+
         methods: {
             /**
              * Check current locale
@@ -41,28 +44,20 @@ const YocsApp = createApp({
              * Redirects user to home page. Depends on whether the user is guest or not.
              */
             redirectToHome() {
-                console.log('Редиректим на главную страницу');
+                console.log('Редиректим на главную страницу')
                 let currentLanguage = this.getCurrentLanguage()
-                // if (this.isGuest()) {
-                //     this.$router.push({
-                //         path : "/" + currentLanguage +  "/auth/login"
-                //     })
-                // } else {
-                //     this.$router.push({
-                //         path: "/" + currentLanguage + "/index"
-                //     })
-                // }
             },
             /**
              * Gets current locale for user
              * @returns {string}
              */
             getCurrentLanguage() {
-                return localesList.en;
+                return localesList.en
             }
         }
     })
     .use(router)
+    .use(store)
 ;
 
 
@@ -73,6 +68,7 @@ const localesList = {
 
 YocsApp.component('MainLayout', require('./layouts/MainLayout.vue').default)
 YocsApp.component('PublicLayout', require('./layouts/PublicLayout.vue').default)
+YocsApp.component('Alert', require('./components/Alert').default)
 
 YocsApp.mount(
     '#app'

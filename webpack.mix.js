@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-// const bootstrap = require('bootstrap')
 
 
 /*
@@ -27,4 +26,6 @@ mix.js('resources/js/app.js', 'public/js')
         'resources/scss/main.scss',
         'public/css'
     )
+    .sourceMaps(false)
     .vue();
+

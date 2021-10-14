@@ -4,24 +4,19 @@
 
 <script>
 import 'bootstrap';
+import { mapGetters } from 'vuex'
 export default {
     name: "App.vue",
     computed: {
-
+        ...mapGetters([
+            'isUserGuest'
+        ]),
         currentLayout() {
-            return this.$root.isGuest()
+            return this.isUserGuest
                 ? 'PublicLayout'
                 : 'MainLayout'
-        }
+        },
     },
-    // beforeRouteEnter(to, from, next) {
-    //     next(vm => {
-    //         if (! vm.isGuest()) {
-    //             vm.redirectToHome()
-    //         }
-    //     })
-    //
-    // },
 }
 
 

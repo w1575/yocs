@@ -40,9 +40,9 @@ const router = createRouter({
                 }
             ],
         },
-
-    ]
+    ],
 });
+
 
 
 
