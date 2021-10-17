@@ -31,6 +31,7 @@ export const alertModule = {
          */
         REMOVE_MESSAGE_BY_INDEX(state, payload) {
             state.messages = state.messages.splice(payload, 1)
+            console.log(state.messages)
         }
     },
 
@@ -39,8 +40,9 @@ export const alertModule = {
     },
 
     actions: {
-        removeMessageByIndex({commit}, index) {
-            commit('REMOVE_MESSAGE_BY_GIVEN_INDEX', index)
+        removeMessageByIndex({commit, state}, index) {
+            commit('REMOVE_MESSAGE_BY_INDEX', index)
+
         },
         /**
          *
@@ -48,7 +50,7 @@ export const alertModule = {
          * @param message
          * @param type
          */
-        addMessage({commit}, message, type="info"){
+        addMessage({commit, state}, message, type="info"){
             commit('ADD_MESSAGE',  {message: message, type: type})
         },
         clearMessages({commit}) {
