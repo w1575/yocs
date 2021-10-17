@@ -5,6 +5,10 @@
 <script>
 import 'bootstrap';
 import { mapGetters } from 'vuex'
+const localesList = {
+    en: 'en',
+    ru: 'ru'
+};
 export default {
     name: "App.vue",
     computed: {
@@ -17,6 +21,17 @@ export default {
                 : 'MainLayout'
         },
     },
+    // created() {
+    //    this.$watch(
+    //        () => this.$route.params, (toParams, prevParams) => {
+    //            let locale = toParams.locale;
+    //            if (locale === undefined || localesList.locale !== undefined) {
+    //                console.log('Не тот роут', locale)
+    //            }
+    //        }
+    //    )
+    // }
+
 }
 
 

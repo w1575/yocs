@@ -13,14 +13,6 @@ const { createApp, h } = Vue
 
 const YocsApp = createApp({
         render: () => h(App),
-        watch: {
-            $route(to, from) {
-                // react to route changes...
-                this.checkLocale(from)
-
-            }
-        },
-
         methods: {
             /**
              * Check current locale
@@ -59,12 +51,6 @@ const YocsApp = createApp({
     .use(router)
     .use(store)
 ;
-
-
-const localesList = {
-    en: 'en',
-    ru: 'ru'
-};
 
 YocsApp.component('MainLayout', require('./layouts/MainLayout.vue').default)
 YocsApp.component('PublicLayout', require('./layouts/PublicLayout.vue').default)

@@ -7,6 +7,7 @@ import LoginPage from "../views/auth/login"
 import RegisterPage from  "../views/auth/register"
 
 
+
 const router = createRouter({
     history: history,
     routes: [
@@ -29,21 +30,40 @@ const router = createRouter({
                     name: 'login',
                     path: 'login',
                     component: LoginPage,
-                    userRoles: [
-
-                    ],
+                    meta: {
+                        requiresAuth: false,
+                    }
                 },
                 {
                     name: "registerPage",
                     path: 'register',
                     component: RegisterPage,
+                    meta: {
+                        requiresAuth: false,
+                    }
+                },
+                {
+                    name: 'indexPage',
+                    path: "index",
+                    component: IndexPage,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 }
             ],
         },
     ],
 });
 
-
+router.beforeEach((to, from, next ) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        console.log('Пользователь должен быть залогинен')
+        next()
+    } else {
+        console.log('Пользователь должен быть гостем')
+        next()
+    }
+})
 
 
 export default router
