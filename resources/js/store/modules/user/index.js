@@ -35,7 +35,10 @@ export const userModule = {
         lastName: state => state.lastName,
         middleName: state => state.middleName,
         avatarData: state => state.avatarData,
-        isUserGuest: state => state.token === null,
+        isUserGuest: () => {
+            const token = localStorage.getItem('token')
+            return token === null && token !== ""
+        },
         allAvailableRoles: () => {
             return [
                 USER_ROLE_GUEST,
@@ -80,12 +83,13 @@ export const userModule = {
             localStorage.setItem('locale', payload)
         }},
 
-    methods: {
-        isUserGuest() {
-            return true;
+    actions: {
+        setLocale(context, locale) {
+            context.commit('SET_LOCALE', locale)
         },
-        setLocale(commit, locale) {
-            commit('SET_LOCALE', locale)
-        }
+        setToken(context, token) {
+            context.commit('SET_TOKEN', token)
+        },
     },
+
 }

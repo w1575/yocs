@@ -57,15 +57,16 @@ export default {
     name: "login",
     data() {
         return {
-            email: null,
-            password: null,
+            email: "sudo@example.com",
+            password: "password",
         }
     },
     methods: {
 
         ...mapActions([
            'addMessage',
-           'clearMessages'
+           'clearMessages',
+            'setToken'
         ]),
 
         validEmail: function () {
@@ -93,14 +94,24 @@ export default {
 
         submitForm(){
             if (this.validateData()) {
-                console.log('Can be submitted')
+                axios.post('/api/auth', {
+                    login: this.login,
+                    password: this.password
+                }).catch(response => {
+                    this.addMessage(response, 'error')
+                }).then(response => {
+                    const token = response.data.token;
+                    this.setToken(token)
+                    console.log('this.homepage', this.homepage)
+                    this.$router.push(this.homepage)
+                })
             } else {
                 console.log('Data is invalid')
             }
-
-
-
         },
+    },
+    computed: {
+        ...mapGetters(['homepage'])
     }
 }
 </script>

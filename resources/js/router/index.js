@@ -71,11 +71,20 @@ router.beforeEach((to, from, next ) => {
 
     if (to.matched.some(record => record.meta.requiresAuth)) {
         console.log('Пользователь должен быть залогинен')
-        next()
+        if (store.getters.isUserGuest) {
+            router.push("/" + currentLocale + "/login")
+        } else {
+            next()
+        }
+
+    } else if (store.getters.isUserGuest === false) {
+        router.push("/" + currentLocale + "/index")
+
     } else {
-        console.log('Пользователь должен быть гостем')
         next()
     }
+
+
 })
 
 
