@@ -5,6 +5,7 @@ const history = createWebHistory();
 import IndexPage from "../views/pages/IndexPage.vue"
 import LoginPage from "../views/auth/login"
 import RegisterPage from  "../views/auth/register"
+import {store} from "../store";
 
 const localesList = {
     en: 'en',
@@ -18,7 +19,9 @@ const router = createRouter({
             path: '/',
             component: IndexPage,
             redirect: () => {
+                console.log(store.getters.homepage)
 
+                return store.getters.homepage
             },
         },
         {
@@ -63,7 +66,7 @@ const router = createRouter({
 router.beforeEach((to, from, next ) => {
     let currentLocale = to.params.locale;
     if (localesList[currentLocale] === undefined) {
-        router.push('/')
+        router.push(store.getters.homepage)
     }
 
     if (to.matched.some(record => record.meta.requiresAuth)) {

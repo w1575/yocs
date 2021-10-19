@@ -22,7 +22,8 @@ export const userModule = {
         },
         locale: () => {
             let locale = localStorage.getItem('locale');
-            if (locale === undefined) {
+            console.log('locale', locale)
+            if (locale === null) {
                 localStorage.setItem('locale', 'en')
                 locale = 'en'
             }
@@ -43,6 +44,14 @@ export const userModule = {
                 USER_ROLE_MANAGER,
             ];
         },
+        homepage: (state, getters) => {
+            const locale = getters.locale
+            if (getters.isUserGuest) {
+                return  "/" + locale + "/login"
+            }
+
+            return "/" + locale + "/index"
+        }
     },
 
     mutations: {
@@ -69,8 +78,7 @@ export const userModule = {
         },
         SET_LOCALE(state, payload) {
             localStorage.setItem('locale', payload)
-        }
-    },
+        }},
 
     methods: {
         isUserGuest() {
