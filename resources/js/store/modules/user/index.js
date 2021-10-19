@@ -17,7 +17,17 @@ export const userModule = {
     },
 
     getters: {
-        token: state => state.token,
+        token: () => {
+            return localStorage.getItem('token')
+        },
+        locale: () => {
+            let locale = localStorage.getItem('locale');
+            if (locale === undefined) {
+                localStorage.setItem('locale', 'en')
+                locale = 'en'
+            }
+            return locale;
+        },
         userName: state => state.userName,
         role: state => state.role,
         firstName: state => state.firstName,
@@ -37,7 +47,7 @@ export const userModule = {
 
     mutations: {
         SET_TOKEN(state, payload) {
-            state.token = payload
+            localStorage.setItem('token', payload)
         },
         SET_USERNAME(state, payload) {
             state.token = payload
@@ -57,11 +67,17 @@ export const userModule = {
         SET_AVATAR_DATA(state, payload) {
             state.middleName = payload
         },
+        SET_LOCALE(state, payload) {
+            localStorage.setItem('locale', payload)
+        }
     },
 
     methods: {
         isUserGuest() {
             return true;
+        },
+        setLocale(commit, locale) {
+            commit('SET_LOCALE', locale)
         }
-    }
+    },
 }

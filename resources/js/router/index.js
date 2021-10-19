@@ -1,12 +1,15 @@
-import {createWebHashHistory, createRouter} from 'vue-router'
+import {createWebHistory, createRouter} from 'vue-router'
 
-const history = createWebHashHistory();
+const history = createWebHistory();
 
 import IndexPage from "../views/pages/IndexPage.vue"
 import LoginPage from "../views/auth/login"
 import RegisterPage from  "../views/auth/register"
 
-
+const localesList = {
+    en: 'en',
+    ru: 'ru'
+};
 
 const router = createRouter({
     history: history,
@@ -14,7 +17,9 @@ const router = createRouter({
         {
             path: '/',
             component: IndexPage,
-            redirect: "/ru",
+            redirect: () => {
+
+            },
         },
         {
             path: '/:locale',
@@ -56,6 +61,11 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next ) => {
+    let currentLocale = to.params.locale;
+    if (localesList[currentLocale] === undefined) {
+        router.push('/')
+    }
+
     if (to.matched.some(record => record.meta.requiresAuth)) {
         console.log('Пользователь должен быть залогинен')
         next()

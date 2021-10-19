@@ -5,10 +5,7 @@
 <script>
 import 'bootstrap';
 import { mapGetters } from 'vuex'
-const localesList = {
-    en: 'en',
-    ru: 'ru'
-};
+
 export default {
     name: "App.vue",
     computed: {
