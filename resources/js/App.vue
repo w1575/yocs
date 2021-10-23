@@ -1,5 +1,6 @@
 <template>
-      <component :is="currentLayout"></component>
+    <Alert></Alert>
+    <component :is="currentLayout"></component>
 </template>
 
 <script>

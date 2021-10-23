@@ -36,6 +36,8 @@
                             Login
                         </button>
 
+
+
                         <div class="d-flex justify-content-center text-center mt-4 pt-1">
                             <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
                             <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
@@ -57,8 +59,8 @@ export default {
     name: "login",
     data() {
         return {
-            email: "sudo@example.com",
-            password: "password",
+            email: "sudo",
+            password: "w",
         }
     },
     methods: {
@@ -71,8 +73,8 @@ export default {
 
         validEmail: function () {
             let pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if (pattern.test(this.email) === false) {
-                this.addMessage('Email\'s format is wrong.', 'error')
+            if (this.email && pattern.test(this.email) === false) {
+                this.addMessage({message: 'Email\'s format is wrong.', type: 'danger'})
                 return false;
             }
 
@@ -80,8 +82,9 @@ export default {
         },
 
         validPassword: function() {
-            if (this.password && this.password.length < 6) {
-                this.addMessage('Password is too short. Need to be 6 symbols at least.', 'error')
+            console.log('this.password', this.password)
+            if (this.password === "" || this.password.length < 6) {
+                this.addMessage({message: 'Password is too short. Need to be 6 symbols at least.', type: 'danger'})
                 return false;
             }
             return true;
@@ -98,7 +101,7 @@ export default {
                     login: this.login,
                     password: this.password
                 }).catch(response => {
-                    this.addMessage(response, 'error')
+                    this.addMessage({ message: response, type: 'danger'})
                 }).then(response => {
                     const token = response.data.token;
                     this.setToken(token)

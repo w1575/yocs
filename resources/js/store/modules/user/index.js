@@ -37,7 +37,7 @@ export const userModule = {
         avatarData: state => state.avatarData,
         isUserGuest: () => {
             const token = localStorage.getItem('token')
-            return token === null && token !== ""
+            return token === null || token === ""
         },
         allAvailableRoles: () => {
             return [

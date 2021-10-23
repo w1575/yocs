@@ -1,8 +1,6 @@
 export const alertModule = {
-    state: () => {
-        return {
-            messages: Array
-        }
+    state: {
+        messages: [],
     },
 
     mutations: {
@@ -30,8 +28,8 @@ export const alertModule = {
          * @constructor
          */
         REMOVE_MESSAGE_BY_INDEX(state, payload) {
-            state.messages = state.messages.splice(payload, 1)
-            console.log(state.messages)
+            state.messages.splice(payload, 1)
+            // console.log('state.messagess', state.messages)
         }
     },
 
@@ -47,11 +45,11 @@ export const alertModule = {
         /**
          *
          * @param commit
-         * @param message
-         * @param type
+         * @param state
+         * @param payload
          */
-        addMessage({commit, state}, message, type="info"){
-            commit('ADD_MESSAGE',  {message: message, type: type})
+        addMessage({commit, state}, payload){
+            commit('ADD_MESSAGE',  payload)
         },
         clearMessages({commit}) {
             commit('CLEAR_MESSAGES')

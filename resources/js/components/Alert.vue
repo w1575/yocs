@@ -1,15 +1,13 @@
 <template>
     <div class="alert-wrapper">
         <div v-for="(messageData, index) in messages" >
-            <div :class="'alert alert-' + messageData.type+ ' alert-dismissible fade show overflow-auto'" role="alert">
+            <div :class="'alert alert-' + messageData.type+ ' fade show overflow-auto'" role="alert">
                 {{ messageData.message }}
                 <button @click="this.removeMessageByIndex(index)" type="button" class="close float-lg-end" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         </div>
-
-        {{messages}}
 
     </div>
 </template>
@@ -23,10 +21,20 @@ export default {
     },
     methods: {
         ...mapActions(['removeMessageByIndex'])
+    },
+    watch: {
+        messages() {
+            console.log("this.messages",this.messages)
+        },
     }
 }
 </script>
 
 <style scoped>
-
+    .alert-wrapper {
+        position: fixed;
+        top: 0;
+        right: 0;
+        min-width: 25%;
+    }
 </style>
