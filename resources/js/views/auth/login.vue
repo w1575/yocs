@@ -59,8 +59,8 @@ export default {
     name: "login",
     data() {
         return {
-            email: "sudo",
-            password: "w",
+            email: "sudo@example.com",
+            password: "password",
         }
     },
     methods: {
@@ -98,15 +98,16 @@ export default {
         submitForm(){
             if (this.validateData()) {
                 axios.post('/api/auth', {
-                    login: this.login,
-                    password: this.password
+                    email: this.email,
+                    password: this.password,
+                    device_name: "test",
                 }).catch(response => {
                     this.addMessage({ message: response, type: 'danger'})
                 }).then(response => {
                     const token = response.data.token;
                     this.setToken(token)
                     console.log('this.homepage', this.homepage)
-                    this.$router.push(this.homepage)
+                    this.$router.go(0);
                 })
             } else {
                 console.log('Data is invalid')
