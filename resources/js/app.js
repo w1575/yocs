@@ -55,6 +55,7 @@ const YocsApp = createApp({
 YocsApp.component('MainLayout', require('./layouts/MainLayout.vue').default)
 YocsApp.component('PublicLayout', require('./layouts/PublicLayout.vue').default)
 YocsApp.component('Alert', require('./components/Alert').default)
+YocsApp.component('SideBar', require('./components/Sidebar').default)
 
 YocsApp.mount(
     '#app'
