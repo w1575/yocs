@@ -3,17 +3,19 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
 
-
-Route::post('/auth', function(Request $request) {
-    return response()->json([
-        'token' => 'test_token'
-    ]);
-});
+Route::post(
+    '/auth',
+    [
+        AuthController::class,
+        'auth'
+    ]
+);
 
 Route::post('/logout', function() {
     return response()->json([
-        
+
     ]);
 });
 
