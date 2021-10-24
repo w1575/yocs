@@ -11,6 +11,8 @@ import { store } from './store/index'
 
 const { createApp, h } = Vue
 
+axios.defaults.withCredentials = true;
+
 const YocsApp = createApp({
         render: () => h(App),
         methods: {
