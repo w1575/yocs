@@ -23,12 +23,11 @@
     </div>
 </template>
 <script>
-export default {
-    name: "main",
-    data: () => ({
-        layout: '',
-    })
-}
+import {defineComponent} from "vue";
+
+export default defineComponent({
+    name: "MainLayout"
+})
 </script>
 
 <style scoped>

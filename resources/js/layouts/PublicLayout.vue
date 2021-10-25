@@ -18,10 +18,10 @@
 
 <script>
 import scssStyles from "../../scss/public-layout.scss"
-
-export default {
+import { defineComponent, shallowRef } from 'vue'
+export default defineComponent({
     name: "PublicLayout"
-}
+})
 </script>
 
 <style scoped>

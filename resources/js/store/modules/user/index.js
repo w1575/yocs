@@ -90,6 +90,10 @@ export const userModule = {
         setToken(context, token) {
             context.commit('SET_TOKEN', token)
         },
+        logout(context) {
+            localStorage.removeItem('token')
+            // this.$router.push('login')
+        },
     },
 
 }

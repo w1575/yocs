@@ -5,12 +5,15 @@ const history = createWebHistory();
 import IndexPage from "../views/pages/IndexPage.vue"
 import LoginPage from "../views/auth/login"
 import RegisterPage from  "../views/auth/register"
+import LogOutPage from "../views/auth/logout"
 import {store} from "../store";
 
 const localesList = {
     en: 'en',
     ru: 'ru'
 };
+
+
 
 const router = createRouter({
     history: history,
@@ -57,7 +60,15 @@ const router = createRouter({
                     meta: {
                         requiresAuth: true,
                     }
-                }
+                },
+                {
+                    name: 'logout',
+                    path: "logout",
+                    component: LogOutPage,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
             ],
         },
     ],

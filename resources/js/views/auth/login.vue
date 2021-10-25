@@ -82,7 +82,6 @@ export default {
         },
 
         validPassword: function() {
-            console.log('this.password', this.password)
             if (this.password === "" || this.password.length < 6) {
                 this.addMessage({message: 'Password is too short. Need to be 6 symbols at least.', type: 'danger'})
                 return false;
@@ -106,8 +105,8 @@ export default {
                 }).then(response => {
                     const token = response.data.token;
                     this.setToken(token)
-                    console.log('this.homepage', this.homepage)
-                    this.$router.go(0);
+                    // this.$router.go(0);
+                    this.$router.push('index')
                 })
             } else {
                 console.log('Data is invalid')

@@ -5,8 +5,10 @@
 
 <script>
 import 'bootstrap';
-import { mapGetters } from 'vuex'
+import PublicLayout from './layouts/PublicLayout'
+import MainLayout from  './layouts/MainLayout'
 
+import { mapGetters } from 'vuex'
 export default {
     name: "App.vue",
     computed: {
@@ -14,21 +16,17 @@ export default {
             'isUserGuest'
         ]),
         currentLayout() {
+            console.log('test', this.isUserGuest)
             return this.isUserGuest
-                ? 'PublicLayout'
-                : 'MainLayout'
+                ? PublicLayout
+                : MainLayout
         },
     },
-    // created() {
-    //    this.$watch(
-    //        () => this.$route.params, (toParams, prevParams) => {
-    //            let locale = toParams.locale;
-    //            if (locale === undefined || localesList.locale !== undefined) {
-    //                console.log('Не тот роут', locale)
-    //            }
-    //        }
-    //    )
-    // }
+
+    setup({isUserGuest}, context) {
+
+    }
+
 
 }
 
